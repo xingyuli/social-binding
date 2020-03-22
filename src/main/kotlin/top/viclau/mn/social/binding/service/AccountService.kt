@@ -64,6 +64,7 @@ class AccountService(
 
         val records = dslContext.select(ACCOUNT.TYPE, countColumn)
             .from(ACCOUNT)
+            .where(ACCOUNT.STATUS.eq(AccountStatus.SUBSCRIBED))
             .groupBy(ACCOUNT.TYPE)
             .fetch()
 
