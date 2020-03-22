@@ -6,6 +6,8 @@ import io.micronaut.runtime.Micronaut
 import me.chanjar.weixin.mp.api.WxMpService
 import me.chanjar.weixin.mp.api.impl.WxMpServiceImpl
 import me.chanjar.weixin.mp.config.impl.WxMpDefaultConfigImpl
+import org.jooq.Configuration
+import top.viclau.mn.social.binding.db.tables.daos.AccountDao
 import javax.inject.Singleton
 
 @Factory
@@ -29,6 +31,14 @@ internal class WxMpFactory {
         }
         return WxMpServiceImpl().apply { wxMpConfigStorage = config }
     }
+
+}
+
+@Factory
+internal class JooqFactory(private val configuration: Configuration) {
+
+    @Singleton
+    fun accountDao() = AccountDao(configuration)
 
 }
 
