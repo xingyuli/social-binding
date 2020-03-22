@@ -1,0 +1,5 @@
+profile: service
+defaultPackage: top.viclau.mn.social.binding
+---
+testFramework: kotlintest
+sourceLanguage: kotlin

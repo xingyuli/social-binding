@@ -1,0 +1,5 @@
+micronaut:
+  server:
+    port: 9090
+  application:
+    name: social-binding
