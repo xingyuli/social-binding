@@ -49,7 +49,7 @@ class WechatController {
                   Event=${Event}
                   EventKey=${EventKey}""".trimIndent())
 
-        if (MsgType == "Event") {
+        if (MsgType == "event") {
             when (Event) {
                 "subscribe" -> accountService.onWxSubscribe(FromUserName)
                 "unsubscribe" -> accountService.onWxUnsubscribe(FromUserName)
