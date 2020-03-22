@@ -26,12 +26,12 @@ class AccountService(
             updateStatus(account, AccountStatus.SUBSCRIBED)
 
         } else {
-            val wxUserInfo = wxMpService.userService.userInfo(openId)
+            // val wxUserInfo = wxMpService.userService.userInfo(openId)
             accountDao.insert(Account().apply {
                 type = AccountType.WECHAT
-                extIdentifier = wxUserInfo.openId
-                extName = wxUserInfo.nickname
-                avatar = wxUserInfo.headImgUrl
+                extIdentifier = openId
+                // extName = wxUserInfo.nickname
+                // avatar = wxUserInfo.headImgUrl
                 status = AccountStatus.SUBSCRIBED
                 createdAt = LocalDateTime.now()
                 updatedAt = LocalDateTime.now()
