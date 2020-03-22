@@ -127,6 +127,8 @@ task jooqCodegen {
                             excludes('flyway_schema_history')
                         }
                         generate() {
+                            generatedAnnotation("false")
+
                             interfaces("true")
                             javaTimeTypes("true")
 
