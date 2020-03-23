@@ -15,5 +15,6 @@
 
     <logger name="top.viclau.mn.social.binding" level="DEBUG" />
     <logger name="org.jooq" level="DEBUG" />
+    <logger name="io.micronaut.http.client" level="TRACE" />
 
 </configuration>

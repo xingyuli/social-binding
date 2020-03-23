@@ -6,6 +6,8 @@ import me.chanjar.weixin.mp.api.WxMpService
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import top.viclau.mn.social.binding.service.AccountService
+import top.viclau.mn.social.binding.service.HitokotoService
+import top.viclau.mn.social.binding.service.WxMpMessageOutput.WxMpTextMessageOutput
 import javax.inject.Inject
 
 @Controller("/wechat")
@@ -19,6 +21,9 @@ class WechatController {
     @Inject
     private lateinit var accountService: AccountService
 
+    @Inject
+    private lateinit var hitokotoService: HitokotoService
+
     @Produces(MediaType.TEXT_PLAIN)
     @Get
     fun verifySignature(
@@ -31,7 +36,7 @@ class WechatController {
     }
 
     @Consumes(MediaType.TEXT_XML, MediaType.APPLICATION_XML)
-    @Produces(MediaType.TEXT_PLAIN)
+    @Produces(MediaType.TEXT_XML)
     @Post
     fun handleMessage(
         ToUserName: String,
@@ -40,7 +45,7 @@ class WechatController {
         MsgType: String,
         Event: String?,
         EventKey: String?
-    ): String {
+    ): Any {
         log.debug("""
                   ToUserName=${ToUserName}
                   FromUserName=${FromUserName}
@@ -49,13 +54,24 @@ class WechatController {
                   Event=${Event}
                   EventKey=${EventKey}""".trimIndent())
 
-        if (MsgType == "event") {
-            when (Event) {
-                "subscribe" -> accountService.onWxSubscribe(FromUserName)
-                "unsubscribe" -> accountService.onWxUnsubscribe(FromUserName)
-            }
+        return when (MsgType) {
+            "event" -> handleEvent(Event!!, FromUserName)
+            "text", "image", "voice", "video", "shortvideo", "location", "link" -> handleNormalMessage(FromUserName, ToUserName)
+            else -> "success"
         }
-        return "1"
+    }
+
+    private fun handleNormalMessage(fromUserName: String, toUserName: String): WxMpTextMessageOutput {
+        val content = hitokotoService.get().let { "${it.hitokoto}\r\n—— ${it.from}" }
+        return WxMpTextMessageOutput(fromUserName, toUserName, System.currentTimeMillis() / 1000, content)
+    }
+
+    private fun handleEvent(event: String, fromUserName: String): String {
+        when (event) {
+            "subscribe" -> accountService.onWxSubscribe(fromUserName)
+            "unsubscribe" -> accountService.onWxUnsubscribe(fromUserName)
+        }
+        return "success"
     }
 
 //    @Get(uri = "/qrCodePictureUrl", produces = [MediaType.TEXT_PLAIN])
