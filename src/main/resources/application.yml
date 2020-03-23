@@ -3,3 +3,11 @@ micronaut:
     port: 9090
   application:
     name: social-binding
+
+flyway:
+  datasources:
+    default:
+      locations: classpath:dbmigrations
+datasources:
+  default:
+    driverClassName: com.mysql.cj.jdbc.Driver
