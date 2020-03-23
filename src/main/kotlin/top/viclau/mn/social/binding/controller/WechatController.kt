@@ -62,7 +62,7 @@ class WechatController {
     }
 
     private fun handleNormalMessage(fromUserName: String, toUserName: String): WxMpTextMessageOutput {
-        val content = hitokotoService.get().let { "${it.hitokoto}\r\n—— ${it.from}" }
+        val content = hitokotoService.get().let { "${it.hitokoto}\r\n\r\n—— ${it.from}" }
         return WxMpTextMessageOutput(fromUserName, toUserName, System.currentTimeMillis() / 1000, content)
     }
 
