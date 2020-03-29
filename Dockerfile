@@ -1,4 +1,6 @@
 FROM adoptopenjdk/openjdk13-openj9:jdk-13.0.2_8_openj9-0.18.0-alpine-slim
-COPY build/libs/social-binding-*-all.jar social-binding.jar
+RUN mkdir /opt/app
+COPY build/libs/social-binding-*-all.jar /opt/app/app.jar
+COPY startup-docker.sh /opt/app
 EXPOSE 8080
-CMD ["java", "-Dcom.sun.management.jmxremote", "-Xmx128m", "-XX:+IdleTuningGcOnIdle", "-Xtune:virtualized", "-jar", "social-binding.jar"]
+CMD ["/bin/sh", "/opt/app/startup-docker.sh"]
