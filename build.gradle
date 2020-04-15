@@ -55,6 +55,7 @@ dependencies {
     implementation "io.micronaut.xml:micronaut-jackson-xml"
     implementation 'io.micronaut.configuration:micronaut-flyway'
     implementation 'io.micronaut.configuration:micronaut-jooq'
+    implementation "io.micronaut.kubernetes:micronaut-kubernetes-discovery-client"
     kapt platform("io.micronaut:micronaut-bom:$micronautVersion")
     kapt "io.micronaut:micronaut-inject-java"
     kapt "io.micronaut:micronaut-validation"
