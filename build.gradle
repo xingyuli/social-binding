@@ -44,6 +44,7 @@ configurations {
 }
 
 dependencies {
+    compileOnly "org.graalvm.nativeimage:svm"
     implementation platform("io.micronaut:micronaut-bom:$micronautVersion")
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:${kotlinVersion}"
     implementation "org.jetbrains.kotlin:kotlin-reflect:${kotlinVersion}"
@@ -57,6 +58,7 @@ dependencies {
     implementation 'io.micronaut.configuration:micronaut-jooq'
     implementation "io.micronaut.kubernetes:micronaut-kubernetes-discovery-client"
     kapt platform("io.micronaut:micronaut-bom:$micronautVersion")
+    kapt "io.micronaut:micronaut-graal"
     kapt "io.micronaut:micronaut-inject-java"
     kapt "io.micronaut:micronaut-validation"
     kaptTest platform("io.micronaut:micronaut-bom:$micronautVersion")
@@ -85,7 +87,7 @@ allOpen {
 
 compileKotlin {
 	kotlinOptions {
-	    jvmTarget = '1.8' 
+	    jvmTarget = '11'
 	    //Will retain parameter names for Java reflection
 	    javaParameters = true 
 	}
@@ -93,7 +95,7 @@ compileKotlin {
 
 compileTestKotlin {
 	kotlinOptions {
-	    jvmTarget = '1.8' 
+	    jvmTarget = '11'
 	    javaParameters = true 
 	}
 }
