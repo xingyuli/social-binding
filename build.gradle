@@ -76,7 +76,7 @@ test.classpath += configurations.developmentOnly
 
 mainClassName = "top.viclau.mn.social.binding.Application"
 jib {
-    from.image = 'docker://gcr.io/distroless/java:11'
+    from.image = 'docker://adoptopenjdk/openjdk13-openj9:jdk-13.0.2_8_openj9-0.18.0-alpine-slim'
     to.image = "registry.cn-beijing.aliyuncs.com/viclau/social-binding:${version}"
 }
 
