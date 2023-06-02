@@ -13,7 +13,7 @@ import javax.inject.Singleton
 @Factory
 internal class WxMpFactory {
 
-    @Value("$\{app.wx.appId}")
+    @Value("$\{app.wx.app-id}")
     private lateinit var wxAppId: String
 
     @Value("$\{app.wx.secret}")
